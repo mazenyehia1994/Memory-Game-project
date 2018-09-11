@@ -25,10 +25,31 @@ function shuffle(array) {
     return array;
 }
 
+var modal = $("#win-modal");
+
 var deck = ["fa-diamond", "fa-diamond", "fa-paper-plane-o", "fa-paper-plane-o", "fa-anchor", "fa-anchor",
            "fa-bolt", "fa-bolt", "fa-cube", "fa-cube", "fa-leaf", "fa-leaf",
            "fa-bicycle", "fa-bicycle", "fa-bomb", "fa-bomb"];
 
+function showAllCards() {
+    var index = 0;
+    $.each($(".card "), function(){
+      $(this).toggleClass("open");
+       $(this).toggleClass("show");
+               
+      index++;
+    });
+};
+
+function closeAllCards() {
+  var index = 0;
+    $.each($(".card i"), function(){
+      $(this).attr("class", "fa " + deck[index]);
+      index++;
+    });
+    
+    resetTimer();
+};
 
 function updateCards() {
     deck = shuffle(deck);
@@ -37,6 +58,7 @@ function updateCards() {
       $(this).attr("class", "fa " + deck[index]);
       index++;
     });
+    
     resetTimer();
 };
 
@@ -211,7 +233,7 @@ var playAgain = function() {
     modal.css("display", "none");
 };
 
-//initialize game
+//Game states initialization
 $(".card").click(onClick);
 $(".restart").click(resetGame);
 $(".play-again").click(playAgain);
@@ -220,4 +242,6 @@ $(".play-again").click(playAgain);
 
 
 // Randomize game board
+
 $(updateCards);
+
